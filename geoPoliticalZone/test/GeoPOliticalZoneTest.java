@@ -8,8 +8,12 @@ public class GeoPOliticalZoneTest {
     @Test
     public void testThatTheStateIsInTheRightPoliticalZone(){
 
-        GeoPoliticalZone geoPoliticalZone = new GeoPoliticalZone();
-        assertEquals('SOUTH WEST', geoPoliticalZone.getZone("ondo"));
+        //GeoPoliticalZone geoPoliticalZone = new GeoPoliticalZone();
+        assertEquals("SOUTH WEST", GeoPoliticalZone.LAGOS.getZone());
     }
 
+    @Test
+    public void testThatBayelsaIsInSouthSouth(){
+        assertEquals("SOUTH SOUTH", GeoPoliticalZone. BAYELSA.getZone());
+    }
 }
