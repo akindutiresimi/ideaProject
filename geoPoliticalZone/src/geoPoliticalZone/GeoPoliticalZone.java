@@ -42,11 +42,14 @@ public enum GeoPoliticalZone {
     CROSS_RIVER("SOUTH SOUTH"),
     DELTA("SOUTH SOUTH"),
     EDO("SOUTH SOUTH"),
-    RIVERS("SOUTH SOUTH");   // <-- only the LAST constant ends with a semicolon
+    RIVERS("SOUTH SOUTH");
 
     private final String zone;
 
     GeoPoliticalZone(String zone) {
+//        if(getZone() != zone) {
+//            throw new IllegalArgumentException("not a state in the geopoliticalzone");
+//        }
         this.zone = zone;
     }
 

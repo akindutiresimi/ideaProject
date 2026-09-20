@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class CheckOut {
 
+
     private static final double DISCOUNT_RATE = 0.075;
     private static final double VAT = 0.17;
-    //    private static final double
     private String name;
     private double price;
     private int quantity;
@@ -59,7 +59,7 @@ public class CheckOut {
     }
     @Override
     public String toString(){
-        return String.format("%-15s Qty: %-5d price: #%-9f Total: #%.2f", name, quantity, price, getTotal());
+        return String.format("%15s Qty: %5d price: %9.2f Total: %.2f", name, quantity, price, getTotal());
     }
 
     public static double calculationSubtotal(ArrayList<CheckOut> cart) {

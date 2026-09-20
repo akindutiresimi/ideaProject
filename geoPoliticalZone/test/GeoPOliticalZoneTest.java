@@ -16,4 +16,9 @@ public class GeoPOliticalZoneTest {
     public void testThatBayelsaIsInSouthSouth(){
         assertEquals("SOUTH SOUTH", GeoPoliticalZone. BAYELSA.getZone());
     }
+
+    @Test
+    public void testThatWhenYouEnterAStateWithWrongGeoPoliticalZoneItThrowsException() {
+        assertEquals("SOUTH SOUTH", GeoPoliticalZone. DELTA.getZone());
+    }
 }
