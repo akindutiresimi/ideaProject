@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static Bank bank = new Bank("First Bank");
+    private static Bank bank = new Bank("Orion Bank");
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         while (true) {
-            System.out.println("\n=========  Welcome to " + bank.getName() + "  =========");
+            System.out.println("=========  Welcome to " + bank.getName() + "  =========");
             System.out.println("1. Create Account");
             System.out.println("2. Deposit");
             System.out.println("3. Withdraw");
@@ -18,9 +18,9 @@ public class Main {
             System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
-            String choice = scanner.nextLine();
+            String menu = scanner.nextLine();
 
-            switch (choice) {
+            switch (menu) {
                 case "1":
                     createAccount();
                     break;
@@ -56,7 +56,7 @@ public class Main {
             bank.createAccount(accountNumber, password);
             System.out.println("Account " + accountNumber + " created successfully!");
         } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error, no such account: ");
         }
     }
 
@@ -70,7 +70,7 @@ public class Main {
             bank.deposit(accountNumber, amount);
             System.out.println("Deposited " + amount + " into account " + accountNumber);
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error, no such account: " );
         }
     }
 
@@ -78,7 +78,7 @@ public class Main {
         System.out.print("Enter account number: ");
         String accountNumber = scanner.nextLine();
         System.out.print("Enter amount to withdraw: ");
-        double amount = Double.parseDouble(scanner.nextLine());
+        double amount = scanner.nextDouble();
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
 
@@ -86,7 +86,7 @@ public class Main {
             bank.withdraw(accountNumber, amount, password);
             System.out.println("Withdrew " + amount + " from account " + accountNumber);
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error, no such account: " );
         }
     }
 
@@ -96,7 +96,7 @@ public class Main {
         System.out.print("Enter recipient's account number: ");
         String toAccount = scanner.nextLine();
         System.out.print("Enter amount to transfer: ");
-        double amount = Double.parseDouble(scanner.nextLine());
+        double amount = scanner.nextDouble();
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
 
@@ -104,7 +104,7 @@ public class Main {
             bank.transfer(fromAccount, toAccount, amount, password);
             System.out.println("Transferred " + amount + " to account " + toAccount);
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error, no such account: "  );
         }
     }
 
@@ -116,7 +116,7 @@ public class Main {
             double balance = bank.checkBalance(accountNumber);
             System.out.println("Balance for account " + accountNumber + ": " + balance);
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error, no such account: " );
         }
     }
 }

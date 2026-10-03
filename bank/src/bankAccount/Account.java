@@ -23,7 +23,7 @@ public class Account{
 
     public void withdraw(double amount, String password) {
         if(!getPassword(password)) {
-            throw new IllegalArgumentException("The passwprd is not correct");
+            throw new IllegalArgumentException("The password is not correct");
         }
         if(amount < balance && balance > 0) balance -= amount;
 
