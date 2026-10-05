@@ -17,8 +17,27 @@ public class DairyTest {
     }
 
     @Test
+    public void testThatTheNewDairyIsNotLocked() {
+        dairy.lockDairy();
+        assertTrue(dairy.isLocked());
+    }
+
+    @Test
+    public void testThatTheDairyIsUnlock() {
+        dairy.lockDairy();
+        assertTrue(dairy.unLocked("perezimo"));
+    }
+
+    @Test
+    public void testThatTheWrongPasswordCantUnlockedTheDairy() {
+        dairy.lockDairy();
+        assertFalse(dairy.unLocked("samuel"));
+        assertTrue(dairy.isLocked());
+    }
+
+    @Test
     public void testThatTheDiaryExit_AndHaveANameANPassword() {
-        assertEquals("Perez", dairy.getName());
+        assertEquals("Perez", dairy.getUsername());
     }
 
     @Test
@@ -38,44 +57,44 @@ public class DairyTest {
 
     @Test
     public void testThatAJourneyOfTheDayWasAddedToTheJourney() {
-        dairy.write("My day");
+        dairy.createEntry("My day");
         assertEquals("My day", dairy.entries().get(0));
     }
 
     @Test
     public void testThatICanAddMoreThanOneThingToMyDairy() {
-        dairy.write("Secret");
-        dairy.write("Stock to Invest In");
-        dairy.write("What pain me today");
+        dairy.createEntry("Secret");
+        dairy.createEntry("Stock to Invest In");
+        dairy.createEntry("What pain me today");
         assertEquals(List.of("Secret","Stock to Invest In","What pain me today"), dairy.entries());
     }
 
     @Test
     public void testThatMyDairyCanRemoveAJourneyAdded() {
-        dairy.write("Secret");
-        dairy.write("Stock to Invest In");
-        dairy.write("What pain me today");
+        dairy.createEntry("Secret");
+        dairy.createEntry("Stock to Invest In");
+        dairy.createEntry("What pain me today");
         dairy.remove("Stock to Invest In");
         assertEquals(List.of("Secret","What pain me today"), dairy.entries());
     }
 
     @Test
     public void testThatItTrulyRemoveAJourneyInTheDairy() {
-        dairy.write("Secret");
-        dairy.write("Stock to Invest In");
-        dairy.write("What pain me today");
+        dairy.createEntry("Secret");
+        dairy.createEntry("Stock to Invest In");
+        dairy.createEntry("What pain me today");
         assertTrue( dairy.remove("Stock to Invest In"));
     }
 
     @Test
     public void testThatItCanRemoveManyJourneyAtOnce() {
-        dairy.write("Secret");
-        dairy.write("Stock to Invest In");
-        dairy.write("What pain me today");
-        dairy.write("I love coding");
-        dairy.write("The beauty of your worth");
-        dairy.write("why you cried today");
-        dairy.write("most painful day of Your life");
+        dairy.createEntry("Secret");
+        dairy.createEntry("Stock to Invest In");
+        dairy.createEntry("What pain me today");
+        dairy.createEntry("I love coding");
+        dairy.createEntry("The beauty of your worth");
+        dairy.createEntry("why you cried today");
+        dairy.createEntry("most painful day of Your life");
         assertTrue( dairy.remove("Stock to Invest In"));
         assertTrue(dairy.remove("The beauty of your worth"));
         assertTrue(dairy.remove("why you cried today"));

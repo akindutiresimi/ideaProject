@@ -4,17 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dairy {
-    private String name;
+    private String username;
     private String password;
+    private boolean isLocked;
     private List <String> entries = new ArrayList<>() ;
 
-    public Dairy(String name, String password) {
-        this. name = name;
-        this. password = password;
+    public Dairy(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
-    public String getName(){
-        return name;
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public boolean unLocked(String password ) {
+        return validatePassword(password);
+    }
+
+    public void lockDairy() {
+        isLocked = true;
+    }
+
+    public String getUsername(){
+        return username;
     }
     public boolean isEmpty(){
         return emptyDiary();
@@ -28,7 +41,7 @@ public class Dairy {
         return this.password.equals(attempt);
     }
 
-    public void write(String journey) {
+    public void createEntry(String journey) {
         entries.add(journey);
     }
     public List<String> entries() {
@@ -38,4 +51,6 @@ public class Dairy {
     public boolean remove(String Journey) {
         return entries.remove(Journey);
     }
+
+    
 }
