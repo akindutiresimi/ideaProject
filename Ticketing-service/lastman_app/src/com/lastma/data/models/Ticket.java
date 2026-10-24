@@ -1,0 +1,23 @@
+package com.lastma.data.models;
+
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDate;
+@Data
+@Document
+public class Ticket {
+    @Id
+    private int id;
+    private int offenceId;
+    private int vehicleId;
+    private int issuedByOfficerId;
+    private String ticketNumber;
+    private String Location;
+    private String description;
+    private String status;
+    private int violationFee;
+    private LocalDate issuedDate;
+    private LocalDate dueDate;
+}

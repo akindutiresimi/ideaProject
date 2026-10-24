@@ -13,7 +13,7 @@ public class BankTest {
 
     @BeforeEach
     public void setUp() {
-        bank = new Bank("First Bank");
+        bank = new Bank("First Bank","001");
         bank.createAccount("001", "Samuel");
         bank.createAccount("002", "Daniel");
     }

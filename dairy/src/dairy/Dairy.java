@@ -7,7 +7,7 @@ public class Dairy {
     private String username;
     private String password;
     private boolean isLocked;
-    private List <String> entries = new ArrayList<>() ;
+    private List<Entry> entries = new ArrayList<>() ;
 
     public Dairy(String username, String password) {
         this.username = username;
@@ -15,7 +15,7 @@ public class Dairy {
     }
 
     public boolean isLocked() {
-        return isLocked;
+        return isLocked = true;
     }
 
     public boolean unLocked(String password ) {
@@ -29,6 +29,7 @@ public class Dairy {
     public String getUsername(){
         return username;
     }
+
     public boolean isEmpty(){
         return emptyDiary();
     }
@@ -41,16 +42,26 @@ public class Dairy {
         return this.password.equals(attempt);
     }
 
-    public void createEntry(String journey) {
-        entries.add(journey);
+    public void createEntry(int id, String title, String body) {
+        entries.add(new Entry(id, title, body));
     }
-    public List<String> entries() {
+
+    public List<Entry> entries() {
         return new ArrayList<>(entries);
     }
 
-    public boolean remove(String Journey) {
-        return entries.remove(Journey);
+    public boolean deleteEntry(int id) {
+        return entries.removeIf(entry -> entry.getId() == id);
     }
 
-    
+
+    public Entry entryById(int id) {
+        for(Entry myEntry: entries){
+            if(myEntry.getId() == id) {
+                return myEntry;
+            }
+        }
+        throw new IllegalArgumentException("Invalid");
+    }
+
 }

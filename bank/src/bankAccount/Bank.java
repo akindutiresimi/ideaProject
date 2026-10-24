@@ -6,9 +6,10 @@ import java.util.NoSuchElementException;
 
 public class Bank {
     private String name;
+   // private String accountNumber;
     private Map<String, Account> accounts;
 
-    public Bank(String name) {
+    public Bank(String name, String accountNumber) {
         this.name = name;
         this.accounts = new HashMap<>();
     }

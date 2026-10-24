@@ -1,6 +1,8 @@
 package dairyTest;
 
 import dairy.Dairy;
+
+import dairy.Entry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +17,6 @@ public class DairyTest {
     public void SetUp() {
         dairy = new Dairy("Perez", "perezimo");
     }
-
     @Test
     public void testThatTheNewDairyIsNotLocked() {
         dairy.lockDairy();
@@ -32,6 +33,12 @@ public class DairyTest {
     public void testThatTheWrongPasswordCantUnlockedTheDairy() {
         dairy.lockDairy();
         assertFalse(dairy.unLocked("samuel"));
+        assertTrue(dairy.isLocked());
+    }
+
+    @Test
+    public void testThaTheDairyIsLocked() {
+        assertTrue(dairy.unLocked("perezimo"));
         assertTrue(dairy.isLocked());
     }
 
@@ -57,47 +64,71 @@ public class DairyTest {
 
     @Test
     public void testThatAJourneyOfTheDayWasAddedToTheJourney() {
-        dairy.createEntry("My day");
-        assertEquals("My day", dairy.entries().get(0));
+        dairy.createEntry(1, "My day", "Today was good");
+        assertEquals("My day", dairy.entries().get(0).getTitle());
+        assertEquals("Today was good", dairy.entries().get(0).getBody());
     }
 
     @Test
     public void testThatICanAddMoreThanOneThingToMyDairy() {
-        dairy.createEntry("Secret");
-        dairy.createEntry("Stock to Invest In");
-        dairy.createEntry("What pain me today");
-        assertEquals(List.of("Secret","Stock to Invest In","What pain me today"), dairy.entries());
+        dairy.createEntry(1, "Secret", "body 1");
+        dairy.createEntry(2, "Stock to Invest In", "body 2");
+        dairy.createEntry(3, "What pain me today", "body 3");
+
+        List<Entry> entries = dairy.entries();
+        assertEquals(3, entries.size());
+        assertEquals("Secret", entries.get(0).getTitle());
+        assertEquals("Stock to Invest In", entries.get(1).getTitle());
+        assertEquals("What pain me today", entries.get(2).getTitle());
     }
 
     @Test
     public void testThatMyDairyCanRemoveAJourneyAdded() {
-        dairy.createEntry("Secret");
-        dairy.createEntry("Stock to Invest In");
-        dairy.createEntry("What pain me today");
-        dairy.remove("Stock to Invest In");
-        assertEquals(List.of("Secret","What pain me today"), dairy.entries());
+        dairy.createEntry(1, "Secret", "body 1");
+        dairy.createEntry(2, "Stock to Invest In", "body 2");
+        dairy.createEntry(3, "What pain me today", "body 3");
+        dairy.deleteEntry(2);
+
+        List<Entry> entries = dairy.entries();
+        assertEquals(2, entries.size());
+        assertEquals("Secret", entries.get(0).getTitle());
+        assertEquals("What pain me today", entries.get(1).getTitle());
     }
 
     @Test
     public void testThatItTrulyRemoveAJourneyInTheDairy() {
-        dairy.createEntry("Secret");
-        dairy.createEntry("Stock to Invest In");
-        dairy.createEntry("What pain me today");
-        assertTrue( dairy.remove("Stock to Invest In"));
+        dairy.createEntry(1, "Secret", "body 1");
+        dairy.createEntry(2, "Stock to Invest In", "body 2");
+        dairy.createEntry(3, "What pain me today", "body 3");
+        assertTrue(dairy.deleteEntry(2));
     }
 
     @Test
     public void testThatItCanRemoveManyJourneyAtOnce() {
-        dairy.createEntry("Secret");
-        dairy.createEntry("Stock to Invest In");
-        dairy.createEntry("What pain me today");
-        dairy.createEntry("I love coding");
-        dairy.createEntry("The beauty of your worth");
-        dairy.createEntry("why you cried today");
-        dairy.createEntry("most painful day of Your life");
-        assertTrue( dairy.remove("Stock to Invest In"));
-        assertTrue(dairy.remove("The beauty of your worth"));
-        assertTrue(dairy.remove("why you cried today"));
+        dairy.createEntry(1, "Secret", "body 1");
+        dairy.createEntry(2, "Stock to Invest In", "body 2");
+        dairy.createEntry(3, "What pain me today", "body 3");
+        dairy.createEntry(4, "I love coding", "body 4");
+        dairy.createEntry(5, "The beauty of your worth", "body 5");
+        dairy.createEntry(6, "why you cried today", "body 6");
+        dairy.createEntry(7, "most painful day of Your life", "body 7");
+        assertTrue(dairy.deleteEntry(2));
+        assertTrue(dairy.deleteEntry(5));
+        assertTrue(dairy.deleteEntry(6));
+    }
+
+    @Test
+    public void testThatICanFindEntryById() {
+        dairy.createEntry(1, "Secret", "body 1");
+        dairy.createEntry(2, "Stock to Invest In", "body 2");
+        dairy.createEntry(3, "What pain me today", "body 3");
+        dairy.createEntry(4, "I love coding", "body 4");
+
+        Entry myEntry = dairy.entryById(3);
+
+        assertEquals("What pain me today", myEntry.getTitle());
+        assertEquals("body 3", myEntry.getBody());
+
     }
 
 }
